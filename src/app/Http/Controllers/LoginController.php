@@ -12,6 +12,9 @@ use function PHPUnit\Framework\isNull;
 
 class LoginController extends Controller
 {
+    /**
+     * コンストラクタ（インスタンス生成）
+     */
     private $users;
     public function __construct(Users $users)
     {

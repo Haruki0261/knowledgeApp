@@ -16,12 +16,13 @@ class Users extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Userテーブルにアクセス
      */
     protected $table = 'users';
 
+    /**
+     * Userテーブルの特定のカラムにアクセス可能
+     */
     protected $fillable = [
         'slack_id',
         'name',
@@ -30,9 +31,7 @@ class Users extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     *　非表示にするカラム
      */
     protected $hidden = [
         'password',
@@ -40,9 +39,7 @@ class Users extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * datetimeに型指定
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -71,7 +68,10 @@ class Users extends Authenticatable
     {
         $user = Users::firstOrCreate(
             ['slack_id' => $slackUser->id],
-            ['slack_id' => $slackUser->id, 'email' => $slackUser->email, 'name' => $slackUser->name, 'password' => Hash::make(Str::random())
+            ['slack_id' => $slackUser->id,
+            'email' => $slackUser->email,
+            'name' => $slackUser->name,
+            'password' => Hash::make(Str::random())
             ]);
 
         return $user;
