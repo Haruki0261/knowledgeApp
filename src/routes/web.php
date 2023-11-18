@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('auth.register');
 });
 
-Route::group(['prefix' => 'login/slack', 'as' => 'slack' ], function () {
+Route::group(['prefix' => 'auth/{provider}', 'as' => 'sns' ], function () {
     Route::get('/redirect', [App\Http\Controllers\LoginController::class, 'redirectToProvider'])->name('.redirect');
     Route::get('/callback', [App\Http\Controllers\LoginController::class, 'handleProviderCallback'])->name('.callback');
 });

@@ -23,7 +23,7 @@ class Users extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'slack_id',
+        'sns_id',
         'name',
         'email',
         'password',
@@ -63,16 +63,16 @@ class Users extends Authenticatable
     /**
      * データベースにデータがなければ、レコードを作成し、Usersテーブルに挿入
      *
-     * @param SocialiteUser $slackUser
+     * @param SocialiteUser $snsUser
      *
      * @return Users
      */
-    public function createSlackUser($slackUser)
+    public function createSlackUser($snsUser): Users
     {
         $user = Users::firstOrCreate(
-            ['slack_id' => $slackUser->id],
-            ['slack_id' => $slackUser->id, 'email' => $slackUser->email, 'name' => $slackUser->name, 'password' => Hash::make(Str::random())
-            ]);
+        ['sns_id' => $snsUser->id],
+        ['sns_id' => $snsUser->id, 'email' => $snsUser->email, 'name' => $snsUser->name, 'password' => Hash::make(Str::random())
+        ]);
 
         return $user;
     }
