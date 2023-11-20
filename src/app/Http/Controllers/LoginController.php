@@ -13,7 +13,9 @@ use function PHPUnit\Framework\isNull;
 class LoginController extends Controller
 {
     /**
-     * コンストラクタ（インスタンス生成）
+    * コンストラクタ（インスタンス生成）
+     *
+     * @var Users
      */
     private $users;
     public function __construct(Users $users)
