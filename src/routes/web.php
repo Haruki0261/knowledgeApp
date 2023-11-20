@@ -14,5 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.register');
 });
+
+Route::group(['prefix' => 'login/slack', 'as' => 'slack' ], function () {
+    Route::get('/redirect', [App\Http\Controllers\LoginController::class, 'redirectToProvider'])->name('.redirect');
+    Route::get('/callback', [App\Http\Controllers\LoginController::class, 'handleProviderCallback'])->name('.callback');
+});
+
+Route::group(['prefix' => 'Knowledge', 'as' => 'Knowledge.', 'middleware' => 'auth'], function() {
+    Route::get('', [App\Http\Controllers\KnowledgeController::class, 'index'])->name('index');
+});
+
+
