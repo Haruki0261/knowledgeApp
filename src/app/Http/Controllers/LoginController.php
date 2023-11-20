@@ -13,6 +13,11 @@ use function PHPUnit\Framework\isNull;
 
 class LoginController extends Controller
 {
+    /**
+     * コンストラクタ(インスタンス生成)
+     *
+     * @var Users
+     */
     private $users;
     public function __construct(Users $users)
     {
@@ -23,7 +28,7 @@ class LoginController extends Controller
      * 認証エンドポイントにリダイレクト
      *
      * @param Request $request
-     * 
+     *
      * @return RedirectResponse
      */
     public function redirectToProvider(Request $request): RedirectResponse

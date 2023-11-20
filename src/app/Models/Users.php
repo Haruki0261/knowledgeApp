@@ -16,9 +16,7 @@ class Users extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Userテーブルにアクセス
      */
     protected $table = 'users';
 
@@ -30,9 +28,7 @@ class Users extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     *　Usersテーブルの特定のカラムにアクセス可能
      */
     protected $hidden = [
         'password',
@@ -40,9 +36,7 @@ class Users extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * 非表示にするカラム
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
