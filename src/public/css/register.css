@@ -35,19 +35,12 @@ a {
     border: 1px solid #ddd;
     border-radius: 4px;
     display: inline-flex;
-<<<<<<< HEAD
     justify-content: center;
-=======
->>>>>>> set-up-env/slack-auth
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     font-weight: 600;
     height: 30px;
-<<<<<<< HEAD
     margin: 7px;
-=======
-    justify-content: center;
->>>>>>> set-up-env/slack-auth
     text-decoration: none;
     width: 256px;
 }
