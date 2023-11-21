@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
-use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 
 class Users extends Authenticatable
 {
@@ -20,15 +19,17 @@ class Users extends Authenticatable
      */
     protected $table = 'users';
 
+    /**
+     *　Usersテーブルの特定のカラムにアクセス可能
+     */
     protected $fillable = [
-        'sns_id',
         'name',
         'email',
         'password',
     ];
 
     /**
-     *　Usersテーブルの特定のカラムにアクセス可能
+     * 非表示にするカラム
      */
     protected $hidden = [
         'password',
@@ -36,22 +37,30 @@ class Users extends Authenticatable
     ];
 
     /**
-     * 非表示にするカラム
+     * 型指定
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     /**
-     * UserテーブルにSlackのIdが既に存在するかどうかの判別
+     * リレーション（Userテーブルのidとslack_userテーブルのuser_idを紐づける）
      *
-     * @param int $slackId
-     *
-     * @return bool
+     * @return hasOne
      */
-    public function existByUserId($slackId): bool
+    public function slackUser(): hasOne
     {
-        return Users::where('id', $slackId)->exists();
+        return $this->hasOne(slack_user::class, 'user_id');
+    }
+
+    /**
+     * リレーション（Userテーブルのidとgoogle_userテーブルのuser_idを紐づける）
+     *
+     * @return void
+     */
+    public function googleUser()
+    {
+        return $this->hasOne(google_user::class, 'user_id');
     }
 
     /**
@@ -61,13 +70,13 @@ class Users extends Authenticatable
      *
      * @return Users
      */
-    public function createSlackUser($snsUser): Users
+    public function createSnsUser($snsUser): Users
     {
         $user = Users::firstOrCreate(
-        ['sns_id' => $snsUser->id],
-        ['sns_id' => $snsUser->id, 'email' => $snsUser->email, 'name' => $snsUser->name, 'password' => Hash::make(Str::random())
+        ['email' => $snsUser->email],
+        ['email' => $snsUser->email, 'name' => $snsUser->name, 'password' => Hash::make(Str::random())
         ]);
-
+        
         return $user;
     }
 }
