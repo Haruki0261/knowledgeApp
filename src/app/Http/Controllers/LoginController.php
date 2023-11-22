@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
 
 use function PHPUnit\Framework\isNull;
@@ -26,7 +27,12 @@ class LoginController extends Controller
     private $users;
     private $slackUser;
     private $googleUser;
-    public function __construct(Users $users, SlackUser $slackUser, GoogleUser $googleUser)
+
+    public function __construct(
+        Users $users,
+        SlackUser $slackUser,
+        GoogleUser $googleUser
+    )
     {
         $this->users = $users;
         $this->slackUser = $slackUser;
@@ -60,14 +66,20 @@ class LoginController extends Controller
         try{
             $provider = $request->provider;
             $snsUser = Socialite::driver($provider)->user();
+
+            DB::beginTransaction();
+
             $user = $this->users->createSnsUser($snsUser);
             auth()->login($user);
             $userId = Auth::id();
 
             if($provider === "slack"){
                 $this->slackUser->createSlackUser($snsUser, $userId);
+            }else{
+                $this->googleUser->createGoogleUser($snsUser, $userId);
             }
-            $this->googleUser->createGoogleUser($snsUser, $userId);
+            
+            DB::commit();
 
             return redirect()->route('Knowledge.index');
         }catch(Exception $e){

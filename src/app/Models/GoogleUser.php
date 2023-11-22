@@ -44,8 +44,8 @@ class GoogleUser extends Model
     public function createGoogleUser($snsUser, $userId): Void
     {
         GoogleUser::firstOrCreate(
-        ['google_id' => $snsUser->id],
-        ['google_id' => $snsUser->id, 'user_id' => $userId
+            ['google_id' => $snsUser->id],
+            ['google_id' => $snsUser->id, 'user_id' => $userId
         ]);
     }
 }
