@@ -84,10 +84,22 @@ class LoginController extends Controller
             return redirect()->route('Knowledge.index');
         }catch(Exception $e){
             logger($e);
-            
+
             DB::rollBack();
             return view('auth.register');
         }
+    }
+
+    /**
+     * ログアウト
+     *
+     * @return View
+     */
+    public function logout(): View
+    {
+        Auth::logout();
+
+        return view('auth.register');
     }
 }
 

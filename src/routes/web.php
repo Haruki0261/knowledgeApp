@@ -24,6 +24,7 @@ Route::group(['prefix' => 'auth/{provider}', 'as' => 'sns' ], function () {
 
 Route::group(['prefix' => 'Knowledge', 'as' => 'Knowledge.', 'middleware' => 'auth'], function() {
     Route::get('', [App\Http\Controllers\KnowledgeController::class, 'index'])->name('index');
+    Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 });
 
 
