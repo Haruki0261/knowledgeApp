@@ -63,12 +63,12 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request): RedirectResponse|view
     {
+        $provider = $request->provider;
+        $snsUser = Socialite::driver($provider)->user();
+
+        DB::beginTransaction();
+
         try{
-            $provider = $request->provider;
-            $snsUser = Socialite::driver($provider)->user();
-
-            DB::beginTransaction();
-
             $user = $this->users->createSnsUser($snsUser);
             auth()->login($user);
             $userId = Auth::id();
@@ -78,13 +78,14 @@ class LoginController extends Controller
             }else{
                 $this->googleUser->createGoogleUser($snsUser, $userId);
             }
-            
+
             DB::commit();
 
             return redirect()->route('Knowledge.index');
         }catch(Exception $e){
             logger($e);
-
+            
+            DB::rollBack();
             return view('auth.register');
         }
     }
