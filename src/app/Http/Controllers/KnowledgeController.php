@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Uses;
+use Illuminate\Contracts\View\View;
 
 class KnowledgeController extends Controller
 {
-    public function index() {
+    /**
+     * 投稿一覧画面（top画面に遷移）
+     *
+     * @return View
+     */
+    public function index(): View
+    {
 
+        return view('top.index');
     }
 }
