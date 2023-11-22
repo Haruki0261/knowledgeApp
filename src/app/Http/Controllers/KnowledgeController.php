@@ -8,6 +8,6 @@ use App\Models\Uses;
 class KnowledgeController extends Controller
 {
     public function index() {
-        
+
     }
 }

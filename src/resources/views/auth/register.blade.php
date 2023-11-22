@@ -14,9 +14,13 @@
     <h1>ナレッジアプリ</h1>
         <div class="login">ログイン</div>
         <div class="login-button">
-            <a href="{{ route("slack.redirect") }}">
-                @include('slack-logo')
+            <a href="{{ route("sns.redirect", "slack") }}">
+                @include('slack-icon')
                 Sign in with Slack
+            </a>
+            <a href="{{ route("sns.redirect", "google")}}">
+                @include('google-icon')
+                Sign in with Google
             </a>
         </div>
     </div>
