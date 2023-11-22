@@ -47,8 +47,8 @@ class SlackUser extends Model
     public function createSlackUser($snsUser, $userId): Void
     {
         SlackUser::firstOrCreate(
-        ['slack_id' => $snsUser->id],
-        ['slack_id' => $snsUser->id, 'user_id' => $userId
+            ['slack_id' => $snsUser->id],
+            ['slack_id' => $snsUser->id, 'user_id' => $userId
         ]);
     }
 }

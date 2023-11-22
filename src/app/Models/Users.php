@@ -73,10 +73,13 @@ class Users extends Authenticatable
     public function createSnsUser($snsUser): Users
     {
         $user = Users::firstOrCreate(
-        ['email' => $snsUser->email],
-        ['email' => $snsUser->email, 'name' => $snsUser->name, 'password' => Hash::make(Str::random())
-        ]);
-        
+            ['email' => $snsUser->email],
+            [
+                'email' => $snsUser->email,
+                'name' => $snsUser->name,
+                'password' => Hash::make(Str::random())
+            ]);
+
         return $user;
     }
 }
