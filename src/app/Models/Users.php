@@ -78,7 +78,8 @@ class Users extends Authenticatable
                 'email' => $snsUser->email,
                 'name' => $snsUser->name,
                 'password' => Hash::make(Str::random())
-            ]);
+            ]
+        );
 
         return $user;
     }
