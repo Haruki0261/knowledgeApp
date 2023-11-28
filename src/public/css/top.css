@@ -1,0 +1,60 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.left-side-bar{
+    width: 10%;
+    height: 100vh;
+    background-color: #cdddbd;
+}
+
+.home-button {
+    width: 70px;
+    height: 60px;
+    margin: 250px 40px 0px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.trush-button {
+    width: 70px;
+    height: 60px;
+    margin: 50px 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+header{
+    display: flex;
+    justify-content: flex-end;
+    height: 15%;
+    background-color: #cdddbd;
+}
+
+.post-button {
+    margin : 25px 60px 25px 30px;
+    width: 60px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.user-name {
+    margin: auto 10px;
+    color: #000000;
+}
+
