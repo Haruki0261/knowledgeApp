@@ -1,0 +1,26 @@
+h1{
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background-color: #eeeeee;
+    margin: 2% 0% 0% 20%;
+    border:1px solid #000;
+    border-radius: 8px;
+    width: 55vw;
+    height: 15vh;
+}
+
+.post-name {
+    margin: 1% 0 0 1%;
+}
+
+.post-time {
+    margin: 0 0 0 1%;
+}
+
+.post-title {
+    margin: 1% 0 0 8%;
+    font-size: 140%;
+}

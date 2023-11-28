@@ -37,7 +37,9 @@ class KnowledgeController extends Controller
      */
     public function index(): View
     {
-        return view('top.index');
+        $posts = $this->posts->getAllPosts();
+        
+        return view('top.index', compact('posts'));
     }
 
     /**
