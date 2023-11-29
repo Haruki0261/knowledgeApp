@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Knowledge.top</title>
-        {{-- font --}}
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+@extends('layout.master')
+@section('title', 'top画面')
 
-</head>
-<body>
-    <a href="{{ route('Knowledge.logout')}}">ログアウト</a>
-</body>
+@section('content')
+@if (session('flash_message'))
+    <div class="flash_message">
+        {{ session('flash_message') }}
+    </div>
+@endif
+@endsection

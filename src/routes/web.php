@@ -23,8 +23,14 @@ Route::group(['prefix' => 'auth/{provider}', 'as' => 'sns' ], function () {
 });
 
 Route::group(['prefix' => 'Knowledge', 'as' => 'Knowledge.', 'middleware' => 'auth'], function() {
+    //投稿一覧画面表示（top画面）
     Route::get('', [App\Http\Controllers\KnowledgeController::class, 'index'])->name('index');
+    //ログアウト処理
     Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    // 新規投稿画面に遷移
+    Route::get('post', [App\Http\Controllers\KnowledgeController::class, 'create'])->name('create');
+    // 新規投稿処理を行い、投稿一覧画面に遷移する。
+    Route::post('', [App\Http\Controllers\KnowledgeController::class, 'createPost'])->name('createPost');
 });
 
 

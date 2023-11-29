@@ -63,12 +63,12 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request): RedirectResponse|view
     {
-        $provider = $request->provider;
-        $snsUser = Socialite::driver($provider)->user();
-
-        DB::beginTransaction();
-
         try{
+            $provider = $request->provider;
+            $snsUser = Socialite::driver($provider)->user();
+
+            DB::beginTransaction();
+
             $user = $this->users->createSnsUser($snsUser);
             auth()->login($user);
             $userId = Auth::id();
