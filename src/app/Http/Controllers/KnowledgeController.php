@@ -38,7 +38,7 @@ class KnowledgeController extends Controller
     public function index(): View
     {
         $posts = $this->posts->getAllPosts();
-        
+
         return view('top.index', compact('posts'));
     }
 
@@ -73,7 +73,7 @@ class KnowledgeController extends Controller
 
             if(!is_null($images)){
                 foreach ($images as $image) {
-                    $imagePath = $image->store('public');
+                    $imagePath = $image->store('public/avatar');
                     $this->postImages->createImage($userId, $imagePath, $postId);
                 }
             }
@@ -88,5 +88,13 @@ class KnowledgeController extends Controller
 
             return redirect()->route('Knowledge.index')->with('flash_message', '投稿に失敗しました');
         }
+    }
+
+    public function KnowledgeDetail(int $postId)
+    {
+        $posts = $this->posts->getPost($postId);
+        $postImages = $this->postImages->getPostImage($postId);
+
+        return view('post.detail', compact('posts', 'postImages'));
     }
 }

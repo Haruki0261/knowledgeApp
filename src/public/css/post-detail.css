@@ -1,0 +1,25 @@
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.post-details {
+    margin: 1% 0 0 15%;
+}
+
+h3 {
+    margin: 1% 0 0 15%;
+}
+
+.content {
+    flex-wrap: wrap;
+    margin: 2% 0 0 15%;
+}
+
+.image {
+    margin: 2% 0 0 15%;
+}
+img {
+    width:30%;
+    height:40%;
+}

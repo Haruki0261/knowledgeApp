@@ -31,6 +31,8 @@ Route::group(['prefix' => 'Knowledge', 'as' => 'Knowledge.', 'middleware' => 'au
     Route::get('post', [App\Http\Controllers\KnowledgeController::class, 'create'])->name('create');
     // 新規投稿処理を行い、投稿一覧画面に遷移する。
     Route::post('', [App\Http\Controllers\KnowledgeController::class, 'createPost'])->name('createPost');
+    //投稿詳細画面に遷移
+    Route::get('{id}', [App\Http\Controllers\KnowledgeController::class, 'KnowledgeDetail'])->name('detail');
 });
 
 
