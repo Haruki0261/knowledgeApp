@@ -71,12 +71,20 @@ class KnowledgeController extends Controller
         try{
             $postId = $this->posts->createPost($userId, $title, $content);
 
+            $postImage = [];
+
             if(!is_null($images)){
                 foreach ($images as $image) {
                     $imagePath = $image->store('public/avatar');
-                    $this->postImages->createImage($userId, $imagePath, $postId);
+                    $postImage = [
+                        'post_id' => $postId,
+                        'user_id' => $userId,
+                        'img_path' => $imagePath
+                    ];
                 }
             }
+            // それを一気にINSERTする。
+            $this->postImages->createImage($postImage);
 
             DB::commit();
 
@@ -90,7 +98,14 @@ class KnowledgeController extends Controller
         }
     }
 
-    public function KnowledgeDetail(int $postId)
+    /**
+     * 指定した投稿を取得
+     *
+     * @param integer $postId
+     *
+     * @return View
+     */
+    public function KnowledgeDetail(int $postId): View
     {
         $posts = $this->posts->getPost($postId);
         $postImages = $this->postImages->getPostImage($postId);

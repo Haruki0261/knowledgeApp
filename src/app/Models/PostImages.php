@@ -22,14 +22,9 @@ class PostImages extends Model
      *
      * @return Void
      */
-    public function createImage($userId, $imagePath, $postId): Void
+    public function createImage($postImage): Void
     {
-        $postImage = new PostImages;
-        $postImage->post_id = $postId;
-        $postImage->user_id = $userId;
-        $postImage->img_path = $imagePath;
-
-        $postImage->save();
+        PostImages::insert($postImage);
     }
 
     /**
@@ -41,9 +36,7 @@ class PostImages extends Model
      */
     public function getPostImage($postId): Collection
     {
-        $postImage = PostImages::where('post_id', $postId)->get();
-
-        return $postImage;
+        return  PostImages::where('post_id', $postId)->get();
     }
 }
 

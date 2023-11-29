@@ -66,10 +66,8 @@ class Posts extends Model
      */
     public function getPost(int $postId): Collection
     {
-        $posts = Posts::where('id', $postId)
+        return Posts::where('id', $postId)
                 ->with(['users'])
                 ->get();
-
-        return $posts;
     }
 }
