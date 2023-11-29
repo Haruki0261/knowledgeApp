@@ -1,0 +1,30 @@
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.post-details {
+    margin: 1% 0 0 15%;
+}
+
+p {
+    font-weight: bold;
+}
+
+h3 {
+    margin: 1% 0 0 15%;
+}
+
+.content {
+    margin: 2% 0 0 15%;
+    line-height: 1.7;
+}
+
+.post-image {
+    margin: 2% 0 0 15%;
+}
+
+img {
+    width:50%;
+    height:60%;
+}

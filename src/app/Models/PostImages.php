@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,14 +22,21 @@ class PostImages extends Model
      *
      * @return Void
      */
-    public function createImage($userId, $imagePath, $postId): Void
+    public function createImage($postImage): Void
     {
-        $postImage = new PostImages;
-        $postImage->post_id = $postId;
-        $postImage->user_id = $userId;
-        $postImage->img_path = $imagePath;
+        PostImages::insert($postImage);
+    }
 
-        $postImage->save();
+    /**
+     * 指定した投稿内の画像を取得する。
+     *
+     * @param int $postId
+     *
+     * @return Collection
+     */
+    public function getPostImage($postId): Collection
+    {
+        return  PostImages::where('post_id', $postId)->get();
     }
 }
 

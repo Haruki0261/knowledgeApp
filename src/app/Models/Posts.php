@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -44,10 +45,29 @@ class Posts extends Model
         return $posts->id;
     }
 
-    public function getAllPosts()
+    /**
+     * 全ての投稿を取得する
+     *
+     * @return Collection
+     */
+    public function getAllPosts(): Collection
     {
         $posts = Posts::with('users')->get();
 
         return $posts;
+    }
+
+    /**
+     * ユーザーが指定した投稿を取得
+     *
+     * @param integer $postId
+     *
+     * @return Collection
+     */
+    public function getPost(int $postId): Collection
+    {
+        return Posts::where('id', $postId)
+                ->with(['users'])
+                ->get();
     }
 }

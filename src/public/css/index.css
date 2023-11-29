@@ -3,6 +3,16 @@ h1{
     justify-content: center;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.flash-message {
+    display: flex;
+    justify-content: center;
+}
+
 .card {
     background-color: #eeeeee;
     margin: 2% 0% 0% 20%;
