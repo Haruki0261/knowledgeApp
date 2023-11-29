@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Posts extends Model
 {
@@ -11,6 +12,16 @@ class Posts extends Model
 
     protected $table = 'posts';
     protected $fillable = ['user_id', 'title', 'content'];
+
+    /**
+     * リレーション（Usersテーブルのidと、Postsテーブルのuser_idを紐付ける）
+     *
+     * @return hasOne
+     */
+    public function Users(): hasOne
+    {
+        return $this->hasOne(Users::class, 'id', 'user_id');
+    }
 
     /**
      * 投稿をpostテーブルに保存($post->idをreturnしたのは、画像保存処理に使うため)
@@ -33,6 +44,10 @@ class Posts extends Model
         return $posts->id;
     }
 
+    public function getAllPosts()
+    {
+        $posts = Posts::with('users')->get();
 
-
+        return $posts;
+    }
 }
