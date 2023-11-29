@@ -7,7 +7,7 @@
 @auth
 @if (session('flash_message'))
     <div class="flash_message">
-        {{ session('flash_message') }}
+        {{ session('flash-message') }}
     </div>
 @endif
 <h1>投稿一覧</h1>

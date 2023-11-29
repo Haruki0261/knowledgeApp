@@ -7,19 +7,24 @@ h1 {
     margin: 1% 0 0 15%;
 }
 
+p {
+    font-weight: bold;
+}
+
 h3 {
     margin: 1% 0 0 15%;
 }
 
 .content {
-    flex-wrap: wrap;
     margin: 2% 0 0 15%;
+    line-height: 170%;
 }
 
 .image {
     margin: 2% 0 0 15%;
 }
+
 img {
-    width:30%;
-    height:40%;
+    width:50%;
+    height:60%;
 }

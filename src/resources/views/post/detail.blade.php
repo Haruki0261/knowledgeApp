@@ -9,7 +9,7 @@
 <h1>{{ $post->title }}</h1>
 <div class="post-details">
     <p>{{ $post->users->name }}</p>
-    <p>{{ $post->updated_at }}</p>
+    <p>{{ $post->updated_at->format('Y-m-d') }}</p>
 </div>
 <h3>Content</h3>
     <div class="content">
