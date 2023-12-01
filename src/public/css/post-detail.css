@@ -3,8 +3,27 @@ h1 {
     justify-content: center;
 }
 
+.flash_message {
+    display: flex;
+    justify-content: center;
+}
+
 .post-details {
     margin: 1% 0 0 15%;
+}
+
+.edit-button {
+    margin: 0 0 0 60%;
+    border-radius: 10%;
+    border: none;
+    background-color: #f4f5f7;
+    width: 5%;
+    height: 4%;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #ffffff;
 }
 
 p {

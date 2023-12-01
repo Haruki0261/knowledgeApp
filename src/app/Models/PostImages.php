@@ -16,13 +16,11 @@ class PostImages extends Model
     /**
      * 新規投稿処理
      *
-     * @param  int $userId
-     * @param  string $imagePath
-     * @param int $postId
+     * @param array $postImage
      *
      * @return Void
      */
-    public function createImage($postImage): Void
+    public function createImage(array $postImage): Void
     {
         PostImages::insert($postImage);
     }
@@ -34,9 +32,28 @@ class PostImages extends Model
      *
      * @return Collection
      */
-    public function getPostImage($postId): Collection
+    public function getPostImage(int $postId): Collection
     {
         return  PostImages::where('post_id', $postId)->get();
+    }
+
+    /**
+     * もし画像が既に投稿されていなかったら、DBにINSERTする。入っていたら、updateする。
+     *
+     * @param int $userId
+     * @param int $postId
+     * @param string  $imagePath
+     * @return void
+     */
+    public function updateImage(int $userId, int $postId, string $imagePath)
+    {
+        $postImages = PostImages::where('post_id', $postId)->get();
+
+        if($postImages->isEmpty())
+        {
+            PostImages::insert(['user_id' => $userId, 'post_id' => $postId, 'img_path' => $imagePath]);
+        }
+        PostImages::where('post_id', $postId)->update(['img_path' => $imagePath]);
     }
 }
 
