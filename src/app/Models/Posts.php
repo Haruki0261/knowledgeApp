@@ -70,4 +70,30 @@ class Posts extends Model
                 ->with(['users'])
                 ->get();
     }
+
+    /**
+     * Pathパラメーターと一致したレコードを更新する。
+     *
+     * @param int $postId
+     * @param string $title
+     * @param string $content
+     *
+     * @return void
+     */
+    public function updatePost(int $postId, string $title, string $content): void
+    {
+        Posts::find($postId)->update(['title' => $title, 'content' => $content]);
+    }
+
+    /**
+     * Pathパラメーターに一致したレコードの、ユーザーIDを取得する
+     *
+     * @param int $postId
+     *
+     * @return int
+     */
+    public function getPostId(int $postId): int
+    {
+        return Posts::find($postId)->user_id;
+    }
 }
