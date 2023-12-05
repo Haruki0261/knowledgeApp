@@ -107,7 +107,7 @@ class KnowledgeController extends Controller
      *
      * @return View
      */
-    public function KnowledgeDetail($postId): View
+    public function KnowledgeDetail(int $postId): View
     {
         $posts = $this->posts->getPost($postId);
         $postImages = $this->postImages->getPostImage($postId);
