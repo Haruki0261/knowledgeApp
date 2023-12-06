@@ -35,6 +35,8 @@ Route::group(['prefix' => 'Knowledge', 'as' => 'Knowledge.', 'middleware' => 'au
     Route::get('{id}/edit', [App\Http\Controllers\KnowledgeController::class, 'showEdit'])->name('edit');
     //投稿詳細画面に遷移
     Route::get('{id}', [App\Http\Controllers\KnowledgeController::class, 'KnowledgeDetail'])->name('detail');
+    // 投稿削除処理
+    Route::delete('{id}', [App\Http\Controllers\KnowledgeController::class, 'deletePost'])->name('delete');
     //投稿編集処理をし、投稿詳細画面に遷移
     Route::put('{id}', [App\Http\Controllers\KnowledgeController::class, 'updatePost'])->name('update');
 });

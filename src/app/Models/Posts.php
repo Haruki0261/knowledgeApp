@@ -96,4 +96,16 @@ class Posts extends Model
     {
         return Posts::find($postId)->user_id;
     }
+
+    /**
+     * $postIdと一致した投稿を削除する
+     *
+     * @param int $postId
+     *
+     * @return void
+     */
+    public function deletePost(int $postId): void
+    {
+        Posts::find($postId)->delete();
+    }
 }

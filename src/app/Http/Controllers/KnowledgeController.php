@@ -134,7 +134,7 @@ class KnowledgeController extends Controller
      * 認可
      *
      * @param int $postId
-     * 
+     *
      * @return bool
      */
     public function isAuthenticatedUserPost(int $postId): bool
@@ -185,9 +185,42 @@ class KnowledgeController extends Controller
         }catch(Exception $e){
             Logger($e);
 
-            DB:: rollBack();
+            DB::rollBack();
 
             return redirect()->route('Knowledge.detail', ['id' => $postId])->with('flashMessage', '投稿中にエラーが発生しました。');
         }
+    }
+
+    /**
+     * 投稿削除処理
+     *
+     * @param int $postId
+     *
+     * @return RedirectResponse
+     */
+    public function deletePost(int $postId): RedirectResponse
+    {
+        $flashMessage="投稿削除に失敗しました。";
+
+        try{
+            if($this->isAuthenticatedUserPost($postId)){
+            $this->posts->deletePost($postId);
+            $postedImages = $this->postImages->getPostImage($postId);
+
+            foreach ($postedImages as $postedImage) {
+                Storage::delete($postedImage->img_path);
+                $this->postImages->deletePostImage($postId);
+            }
+
+            $flashMessage = "投稿削除に成功しました";
+            }
+
+            return redirect()->route('Knowledge.index')->with('flash_message', $flashMessage);
+        }catch(Exception $e){
+            Logger($e);
+
+            return redirect()->route('Knowledge.index')->with('flashMessage', '削除中にエラーが発生しました。');
+        }
+
     }
 }

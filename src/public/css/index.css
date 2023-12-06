@@ -8,7 +8,7 @@ a {
     color: inherit;
 }
 
-.flash-message {
+.flash_message {
     display: flex;
     justify-content: center;
 }

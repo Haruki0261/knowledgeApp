@@ -55,5 +55,17 @@ class PostImages extends Model
         }
         PostImages::where('post_id', $postId)->update(['img_path' => $imagePath]);
     }
+
+    /**
+     * $postIdと一致した投稿の画像を削除する。
+     *
+     * @param int $postId
+     *
+     * @return void
+     */
+    public function deletePostImage(int $postId)
+    {
+        PostImages::where('post_id', $postId)->delete();
+    }
 }
 

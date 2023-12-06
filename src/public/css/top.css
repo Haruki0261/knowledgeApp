@@ -29,6 +29,7 @@ body{
     background-color: #ffffff;
     cursor: pointer;
 }
+
 .flex-column{
     display: flex;
     flex-direction: column;
