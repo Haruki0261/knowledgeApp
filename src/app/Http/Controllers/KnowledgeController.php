@@ -202,23 +202,28 @@ class KnowledgeController extends Controller
     {
         $flashMessage="投稿削除に失敗しました。";
 
+        DB::beginTransaction();
+        
         try{
             if($this->isAuthenticatedUserPost($postId)){
-            $this->posts->deletePost($postId);
-            $postedImages = $this->postImages->getPostImage($postId);
+                $this->posts->deletePost($postId);
+                $postedImages = $this->postImages->getPostImage($postId);
 
-            foreach ($postedImages as $postedImage) {
-                Storage::delete($postedImage->img_path);
                 $this->postImages->deletePostImage($postId);
-            }
 
-            $flashMessage = "投稿削除に成功しました";
+                foreach ($postedImages as $postedImage) {
+                    Storage::delete($postedImage->img_path);
+                }
+
+                $flashMessage = "投稿削除に成功しました";
             }
+            DB::commit();
 
             return redirect()->route('Knowledge.index')->with('flash_message', $flashMessage);
         }catch(Exception $e){
             Logger($e);
 
+            DB::rollBack();
             return redirect()->route('Knowledge.index')->with('flashMessage', '削除中にエラーが発生しました。');
         }
 

@@ -1,6 +1,5 @@
 h1 {
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 .flash_message {
@@ -28,7 +27,7 @@ h1 {
 .edit-button {
     border-radius: 10%;
     border: none;
-    background-color: #007bff;
+    background-color: #95CCFF;
     width: 50px;
     height: 40px;
     margin-right: 10px;
@@ -38,7 +37,7 @@ h1 {
 .delete-button {
     border-radius: 10%;
     border: none;
-    background-color: #dc3545;
+    background-color: #f26651;
     width: 50px;
     height: 40px;
 

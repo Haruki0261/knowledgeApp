@@ -11,7 +11,7 @@
 @section('content')
 @auth
 @foreach ($posts as $post)
-    <h1 class="mt-2">{{ $post->title }}</h1>
+    <h1>{{ $post->title }}</h1>
 @if (session('flashMessage'))
     <div class="flash_message">
         {{ session('flashMessage') }}

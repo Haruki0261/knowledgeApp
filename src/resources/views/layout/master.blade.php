@@ -9,12 +9,11 @@
         <link rel="stylesheet" href="{{ asset('/css/top.css') }}">
 </head>
 <body>
-    <aside class="left-side-bar">
+    <div class="left-side-bar">
         <form method="GET" action="{{ route('Knowledge.index') }}" >
             <button class="home-button">Home</button>
         </form>
-        <button class="trush-button">g</button>
-    </aside>
+    </div>
     <div class="flex-column">
         <header>
             <div class="user-name">
