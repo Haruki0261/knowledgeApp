@@ -27,7 +27,6 @@
             @csrf
             <button class="action-button edit-button">編集</button>
         </form>
-        <!-- Button trigger modal -->
         <button type="button" class="action-button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">
         削除
         </button>
@@ -44,17 +43,17 @@
             <p>[参考画像]</p>
             <img src="{{ Storage::url($postImage->img_path) }}" />
         </div>
-
-    <!-- Modal -->
+    @endforeach
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header d-block text-center">
                 <h1 class="modal-title fs-5 text" id="exampleModalLabel">削除確認</h1>
             </div>
             <div class="modal-body text-center">
                 本当に削除しても大丈夫ですか？
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
                 <form action="{{ route('Knowledge.delete', ['id' => $post->id ])}}" method="post">
@@ -65,7 +64,8 @@
             </div>
         </div>
     </div>
-    @endforeach
+</div>
+
 @endforeach
 @endauth
 @endsection
