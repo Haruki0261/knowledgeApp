@@ -74,13 +74,13 @@ class KnowledgeController extends Controller
         try{
             $postId = $this->posts->createPost($userId, $title, $content);
 
-            if(!is_null($image)){
-                    $imagePath = $image->store('public/avatar');
-                    $postImage = [
-                        'post_id' => $postId,
-                        'user_id' => $userId,
-                        'img_path' => $imagePath
-                    ];
+            if(isset($image)){
+                $imagePath = $image->store('public/avatar');
+                $postImage = [
+                    'post_id' => $postId,
+                    'user_id' => $userId,
+                    'img_path' => $imagePath
+                ];
             }
             $this->postImages->createImage($postImage);
 
@@ -166,7 +166,7 @@ class KnowledgeController extends Controller
                     Storage::delete($postedImage->img_path);
                 }
 
-                if (!is_null($image)) {
+                if (isset($image)) {
                     $imagePath = $image->store('public/avatar');
                 }
                 $this->postImages->updateImage($userId, $postId, $imagePath);
