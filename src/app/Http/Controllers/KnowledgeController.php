@@ -67,24 +67,20 @@ class KnowledgeController extends Controller
         $userId = Auth::id();
         $title = $request->input('title');
         $content = $request->input('content');
-        $images = $request->file('images');
+        $image = $request->file('image');
 
         DB::beginTransaction();
 
         try{
             $postId = $this->posts->createPost($userId, $title, $content);
 
-            $postImage = [];
-
-            if(!is_null($images)){
-                foreach ($images as $image) {
-                    $imagePath = $image->store('public/avatar');
-                    $postImage = [
-                        'post_id' => $postId,
-                        'user_id' => $userId,
-                        'img_path' => $imagePath
-                    ];
-                }
+            if(isset($image)){
+                $imagePath = $image->store('public/avatar');
+                $postImage = [
+                    'post_id' => $postId,
+                    'user_id' => $userId,
+                    'img_path' => $imagePath
+                ];
             }
             $this->postImages->createImage($postImage);
 
@@ -125,9 +121,8 @@ class KnowledgeController extends Controller
     public function showEdit(int $postId): View
     {
         $posts = $this->posts->getPost($postId);
-        $postImages = $this->postImages->getPostImage($postId);
 
-        return view('post.edit', compact('posts', 'postImages'));
+        return view('post.edit', compact('posts'));
     }
 
     /**
@@ -156,7 +151,7 @@ class KnowledgeController extends Controller
         $userId = Auth::id();
         $title = $request->input('title');
         $content = $request->input('content');
-        $images = $request->file('images');
+        $image = $request->file('image');
 
         $flashMessage = "投稿編集に成功しました";
 
@@ -171,12 +166,10 @@ class KnowledgeController extends Controller
                     Storage::delete($postedImage->img_path);
                 }
 
-                if (!is_null($images)) {
-                    foreach ($images as $image) {
-                        $imagePath = $image->store('public/avatar');
-                    }
-                $this->postImages->updateImage($userId, $postId, $imagePath);
+                if (isset($image)) {
+                    $imagePath = $image->store('public/avatar');
                 }
+                $this->postImages->updateImage($userId, $postId, $imagePath);
             }
 
             DB::commit();
@@ -185,9 +178,47 @@ class KnowledgeController extends Controller
         }catch(Exception $e){
             Logger($e);
 
-            DB:: rollBack();
+            DB::rollBack();
 
             return redirect()->route('Knowledge.detail', ['id' => $postId])->with('flashMessage', '投稿中にエラーが発生しました。');
         }
+    }
+
+    /**
+     * 投稿削除処理
+     *
+     * @param int $postId
+     *
+     * @return RedirectResponse
+     */
+    public function deletePost(int $postId): RedirectResponse
+    {
+        $flashMessage="投稿削除に失敗しました。";
+
+        DB::beginTransaction();
+
+        try{
+            if($this->isAuthenticatedUserPost($postId)){
+                $this->posts->deletePost($postId);
+                $postedImages = $this->postImages->getPostImage($postId);
+
+                $this->postImages->deletePostImage($postId);
+
+                foreach ($postedImages as $postedImage) {
+                    Storage::delete($postedImage->img_path);
+                }
+
+                $flashMessage = "投稿削除に成功しました";
+            }
+            DB::commit();
+
+            return redirect()->route('Knowledge.index')->with('flash_message', $flashMessage);
+        }catch(Exception $e){
+            Logger($e);
+
+            DB::rollBack();
+            return redirect()->route('Knowledge.index')->with('flashMessage', '削除中にエラーが発生しました。');
+        }
+
     }
 }

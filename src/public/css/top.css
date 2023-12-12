@@ -6,7 +6,7 @@ body{
 
 .left-side-bar{
     width: 10%;
-    height: 100vh;
+    height: 200vh;
     background-color: #cdddbd;
 }
 
@@ -29,6 +29,7 @@ body{
     background-color: #ffffff;
     cursor: pointer;
 }
+
 .flex-column{
     display: flex;
     flex-direction: column;

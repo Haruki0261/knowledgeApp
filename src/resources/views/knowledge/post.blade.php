@@ -14,7 +14,7 @@
         <input type="text" class="title" name="title">
         <label for="posts">Content</label>
         <textarea name="content"></textarea>
-        <input type="file" name="images[]" multiple/>
+        <input type="file" name="image"/>
         <button type="submit" class="send-button">送信</button>
     </form>
 
